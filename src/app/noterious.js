@@ -16,15 +16,26 @@ angular.module('noterious', [
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
+      .state('boards', {
+        url:'/boards',
+        templateUrl: 'app/boards/boards.tmpl.html',
+         resolve: {
+           'currentUser': ['Auth', function (Auth) {
+            return firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                return user;
+              } else {
+                return null;
+              }
+            });
+           }]
+         },
+        controller: 'boardsCtrl',
+        controllerAs: 'boards'
+      })
     ;
 
-    /* HINT: Add this to your boards route to force authentication
-     resolve: {
-       'currentUser': ['Auth', function (Auth) {
-        return Auth.$requireAuth();
-       }]
-     }
-     */
+
   })
   .run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
