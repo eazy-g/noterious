@@ -17,9 +17,12 @@ angular.module('noterious')
           email: login.user.email,
           password: login.user.password
       })
-      .then(onLogin)
+      .then(function edit (authData){
+        console.log('User ' + authData.uid + ' created successfully!');
+        onLogin();
+      })
       .catch(onError)
-      .finally(onCompletion);
+      .then(onCompletion);
     }
 
     function onLogin() {
@@ -29,18 +32,21 @@ angular.module('noterious')
       })
       .then(onSuccess)
       .catch(onError)
-      .finally(onCompletion);
+      .then(onCompletion);
     }
 
     function onSuccess(result) {
+      console.log('in success', result);
       $state.go('boards');
     }
 
     function onError(reason) {
+      console.log('in error', reason);
       login.error = reason.message;
     }
 
     function onCompletion() {
+      console.log('in completion');
       login.reset();
     }
 

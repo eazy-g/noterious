@@ -3,10 +3,9 @@
 angular.module('noterious', [
   'ui.router',
   'ngAnimate',
-  'firebase',
+  // 'firebase',
   'noterious.common'
 ])
-  .constant('ENDPOINT_URI', 'https://noterious.firebaseio.com/')
   .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/login');
 

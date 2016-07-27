@@ -24,7 +24,7 @@ angular.module('noterious')
       $state.go('login');
     };
 
-    main.auth.$onAuth(function (authData) {
+    main.auth.auth().onAuthStateChanged(function (authData) {
       if (authData) {
         UserModel.setCurrentUser(authData.uid);
         main.currentUser = authData.uid;
